@@ -300,7 +300,9 @@ function renderLevels() {
 }
 
 // Initial load
+function initNetwork() {
     network.getLevels();
+}
 
 function setupEventListeners() {
     // Menu buttons
@@ -478,4 +480,4 @@ function saveLevel() {
 // Export for testing
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = { Sketch, editedLevel, gameState, levels, network, handleMenuAction, loadLevel, saveLevel };
-}
+}}

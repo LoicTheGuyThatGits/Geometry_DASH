@@ -324,8 +324,12 @@ function setupEventListeners() {
     });
     
     // Platform creation on canvas click (in editor mode)
+    // Only create platform if click is NOT on a button
     canvas.addEventListener('click', (e) => {
         if (gameState === 'editor') {
+            // Check if click target is a button
+            if (e.target.tagName === 'BUTTON') return;
+            
             const rect = canvas.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;

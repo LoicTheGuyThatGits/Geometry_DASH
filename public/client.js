@@ -13,9 +13,6 @@ let editedLevel = {
     gravity: 1
 };
 
-// Check if we're on the server or just running locally
-const isServer = typeof require !== 'undefined' && require.main === module;
-
 // p5.js sketch
 function Sketch(p) {
     let canvas;
@@ -276,10 +273,12 @@ function initNetwork() {
         }
     };
     
-    // Render levels to the DOM
+    // Initial load
+    network.getLevels();
+}
+
+// Render levels to the DOM
 function renderLevels() {
-    const levelBrowser = document.getElementById('levelBrowser');
-    const levelSelect = document.getElementById('levelSelect');
     const levelListId = document.getElementById('levelList');
     
     if (!levelListId) return;
@@ -299,15 +298,12 @@ function renderLevels() {
     });
 }
 
-// Initial load
-function initNetwork() {
-    network.getLevels();
-}
-
+// Setup all event listeners
 function setupEventListeners() {
     // Menu buttons
     document.querySelectorAll('.btn').forEach(btn => {
-        btn.addEventListener('click', () => {
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevent canvas click from interfering
             const action = btn.getAttribute('data-action');
             handleMenuAction(action);
         });
@@ -316,21 +312,26 @@ function setupEventListeners() {
     // Level card clicks
     document.addEventListener('click', (e) => {
         if (e.target.classList.contains('level-card')) {
+            e.stopPropagation();
             const levelId = e.target.getAttribute('data-level-id');
             loadLevel(levelId);
         }
     });
     
-    // Editor controls
-    document.getElementById('btnJump')?.addEventListener('click', () => {
+    // Editor: Jump button
+    document.getElementById('btnJump')?.addEventListener('click', (e) => {
+        e.stopPropagation();
         if (gameState === 'playing') {
-            // Trigger jump via key event
             keys['SPACE'] = true;
             setTimeout(() => { keys['SPACE'] = false; }, 100);
         }
     });
     
-    document.getElementById('btnSave')?.addEventListener('click', saveLevel);
+    // Editor: Save button
+    document.getElementById('btnSave')?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        saveLevel();
+    });
     
     // Keyboard controls while playing
     window.addEventListener('keydown', (e) => {
@@ -349,6 +350,7 @@ function setupEventListeners() {
     
     // Platform creation on canvas click (in editor mode)
     // Only create platform if click is NOT on a button
+    const canvas = document.getElementById('gameCanvas');
     canvas.addEventListener('click', (e) => {
         if (gameState === 'editor') {
             // Check if click target is a button
@@ -377,6 +379,11 @@ function handleMenuAction(action) {
     const editor = document.getElementById('editorSection');
     const levelBrowser = document.getElementById('levelBrowser');
     
+    if (!levelBrowser || !levelSelect || !editor) {
+        console.error('Missing DOM elements');
+        return;
+    }
+    
     levelSelect.style.display = 'none';
     editor.style.display = 'none';
     levelBrowser.style.display = 'none';
@@ -401,11 +408,13 @@ function handleMenuAction(action) {
             document.getElementById('gameCanvas').style.display = 'block';
             gameState = 'editor';
             levelBrowser.style.display = 'block';
+            console.log('Editor mode activated');
             break;
             
         case 'browse':
             gameState = 'menu';
             levelBrowser.style.display = 'block';
+            console.log('Level browser shown');
             break;
             
         case 'play':
@@ -422,6 +431,7 @@ function handleMenuAction(action) {
         case 'back':
             gameState = 'menu';
             levelBrowser.style.display = 'block';
+            console.log('Back to menu');
             break;
     }
 }
@@ -477,7 +487,7 @@ function saveLevel() {
     console.log('Level saved!');
 }
 
-// Export for testing
+// Export for testing (if used as module)
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = { Sketch, editedLevel, gameState, levels, network, handleMenuAction, loadLevel, saveLevel };
-}}
+}

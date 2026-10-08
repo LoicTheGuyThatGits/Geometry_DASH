@@ -276,9 +276,31 @@ function initNetwork() {
         }
     };
     
-    // Initial load
-    network.getLevels();
+    // Render levels to the DOM
+function renderLevels() {
+    const levelBrowser = document.getElementById('levelBrowser');
+    const levelSelect = document.getElementById('levelSelect');
+    const levelListId = document.getElementById('levelList');
+    
+    if (!levelListId) return;
+    
+    levelListId.innerHTML = '';
+    
+    levels.forEach(level => {
+        const card = document.createElement('div');
+        card.className = 'level-card';
+        card.setAttribute('data-level-id', level.id);
+        card.innerHTML = `
+            <h3>${level.name}</h3>
+            <p>By ${level.author}</p>
+            <span class="difficulty">${level.difficulty}</span>
+        `;
+        levelListId.appendChild(card);
+    });
 }
+
+// Initial load
+    network.getLevels();
 
 function setupEventListeners() {
     // Menu buttons

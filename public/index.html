@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geometry Dash Clone - Level Creator & Browser</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <header class="header">
+            <h1>Geometry Dash Clone</h1>
+            <p>Create, Play & Share Levels</p>
+        </header>
+
+        <main class="main-content">
+            <!-- Level Browser Section -->
+            <section class="levels-browser" id="levelBrowser">
+                <div class="controls">
+                    <button class="btn" data-action="browse">Browse Levels</button>
+                    <button class="btn" data-action="create">Create Level</button>
+                </div>
+                <div id="levelList" class="level-list"></div>
+            </section>
+
+            <!-- Level Select / Create Section -->
+            <section class="levels-browser" id="levelSelect" style="display: none;">
+                <div class="controls">
+                    <button class="btn" data-action="back">Back to Menu</button>
+                </div>
+                <h2>Select or Create a Level</h2>
+                <div id="levelList" class="level-list"></div>
+            </section>
+
+            <!-- Editor Section -->
+            <section class="editor-section" id="editorSection" style="display: none;">
+                <h2>Level Editor</h2>
+                <p>Use the canvas below to create your level. Press SPACE to jump, A/D to move.</p>
+                
+                <div class="level-info">
+                    <h3>Level Info</h3>
+                    <div class="info-row">
+                        <span class="info-label">Name:</span>
+                        <span class="info-value" id="levelName">New Level</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Difficulty:</span>
+                        <span class="info-value" id="levelDifficulty">Normal</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Downloads:</span>
+                        <span class="info-value" id="levelDownloads">0</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Likes:</span>
+                        <span class="info-value" id="levelLikes">0</span>
+                    </div>
+                </div>
+
+                <div class="canvas-container">
+                    <canvas id="gameCanvas"></canvas>
+                </div>
+
+                <div class="controls" style="position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);">
+                    <button class="btn" id="btnJump">SPACE to Jump</button>
+                    <button class="btn" id="btnSave">Save Level</button>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <a href="#">Terms of Service</a>
+            <span>© 2026 Geometry Dash Clone</span>
+        </footer>
+    </div>
+
+    <script src="https://unpkg.com/p5@1.9.0/lib/p5.min.js"></script>
+    <script src="https://unpkg.com/p5.sound@1.0.1/lib/addons/p5.sound.min.js"></script>
+    <script src="client.js"></script>
+</body>
+</html>

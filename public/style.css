@@ -1,0 +1,233 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background: #0a0a0f;
+    color: #e0e0e0;
+    overflow-x: hidden;
+}
+
+:root {
+    --neon-cyan: #00ffef;
+    --neon-pink: #ff2d95;
+    --neon-purple: #bc13fe;
+    --bg-dark: #050510;
+    --card-bg: #1a1a2e;
+    --text-muted: #666;
+}
+
+.app-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header */
+.header {
+    background: linear-gradient(135deg, #0a0a15 0%, #1a1a3a 100%);
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid #333;
+}
+
+.header h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2rem;
+    background: linear-gradient(135deg, var(--neon-cyan), var(--neon-pink));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.header p {
+    color: var(--text-muted);
+    margin-top: 0.5rem;
+}
+
+/* Main content */
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    max-width: 1600px;
+    width: 100%;
+}
+
+/* Levels browser section */
+.levels-browser {
+    width: 100%;
+    max-width: 1200px;
+    margin: 2rem 0;
+}
+
+/* Level card */
+.level-card {
+    background: var(--card-bg);
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin: 1rem 0;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.level-card:hover {
+    border-color: var(--neon-cyan);
+    box-shadow: 0 0 20px rgba(0, 255, 239, 0.2);
+}
+
+.level-card h3 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.2rem;
+    color: var(--neon-cyan);
+    margin-bottom: 0.5rem;
+}
+
+.level-card p {
+    color: var(--text-muted);
+    font-size: 0.875rem;
+}
+
+.level-card .difficulty {
+    color: var(--neon-pink);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+}
+
+/* Controls */
+.controls {
+    display: flex;
+    gap: 1rem;
+    margin: 2rem 0;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.btn {
+    background: linear-gradient(135deg, var(--neon-cyan), var(--neon-purple));
+    color: #0a0a0f;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 4px;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(0, 255, 239, 0.3);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.btn:focus {
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+}
+
+/* Editor section */
+.editor-section {
+    width: 100%;
+    max-width: 1200px;
+    margin: 2rem 0;
+    padding: 2rem;
+    background: var(--card-bg);
+    border: 1px solid #333;
+    border-radius: 8px;
+}
+
+.editor-section h2 {
+    font-family: 'Orbitron', sans-serif;
+    color: var(--neon-cyan);
+    margin-bottom: 1.5rem;
+}
+
+.editor-section p {
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+}
+
+/* Level info panel */
+.level-info {
+    background: #16213e;
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin: 1rem 0;
+}
+
+.level-info h3 {
+    font-family: 'Orbitron', sans-serif;
+    color: var(--neon-cyan);
+    margin-bottom: 1rem;
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    margin: 0.5rem 0;
+    color: #ccc;
+}
+
+.info-label {
+    color: var(--text-muted);
+}
+
+.info-value {
+    color: var(--neon-cyan);
+}
+
+/* Canvas container */
+.canvas-container {
+    position: relative;
+    background: #000;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+}
+
+/#gameCanvas {
+    display: block;
+    background: #000;
+}
+
+/* Footer */
+.footer {
+    background: #0d1117;
+    padding: 1rem 2rem;
+    border-top: 1px solid #333;
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    text-align: center;
+}
+
+.footer a {
+    color: var(--neon-cyan);
+    text-decoration: none;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .btn {
+        width: 100%;
+    }
+}

@@ -2,6 +2,8 @@ let network = null;
 let gameState = 'menu'; // menu, playing, editor, levelSelect
 let currentLevel = null;
 let levels = [];
+let keys = {}; // Global keys object for keyboard input
+let showGrid = true; // Global showGrid for editor grid
 let editedLevel = {
     name: 'My Level',
     author: 'Player',
@@ -28,7 +30,6 @@ function Sketch(p) {
         speed: 5
     };
     
-    let keys = {};
     let showGrid = true;
     
     p.setup = () => {
@@ -231,7 +232,9 @@ function initNetwork() {
             try {
                 const response = await fetch('/api/levels');
                 if (response.ok) {
-                    levels = await response.json();
+                    const data = await response.json();
+                    // Handle both { success: true, levels: [...] } and direct array
+                    levels = data.levels || data || [];
                     renderLevels();
                 }
             } catch (err) {
